@@ -17,13 +17,14 @@ import static org.junit.jupiter.api.Assumptions.assumingThat;
 class StudyTest {
 
     @Test
-    @DisplayName("스터디 만들기 ╯°□°）╯")
-    @EnabledOnOs(OS.MAC)
-    @EnabledOnJre({JRE.JAVA_8, JRE.JAVA_9, JRE.JAVA_10, JRE.JAVA_11})
-    @EnabledIfEnvironmentVariable(named = "TEST_ENV", matches = "LOCAL")
+    @DisplayName("스터디 만들기 fast")
+    @Tag("fast")
+//    @EnabledOnOs(OS.MAC)
+//    @EnabledOnJre({JRE.JAVA_8, JRE.JAVA_9, JRE.JAVA_10, JRE.JAVA_11})
+//    @EnabledIfEnvironmentVariable(named = "TEST_ENV", matches = "LOCAL")
     void create_new_study() {
-        String test_env = System.getenv("TEST_ENV");
-        System.out.println("local");
+//        String test_env = System.getenv("TEST_ENV");
+//        System.out.println("local");
         Study actual = new Study(100);
         assertThat(actual.getLimit()).isGreaterThan(0);
 
@@ -52,7 +53,7 @@ class StudyTest {
         String message = exception.getMessage();
         assertEquals("limit은 0보다 커야 한다.", exception.getMessage());*/
 
- //       Study study = new Study(-10);
+//        Study study = new Study(-10);
 /*        assertAll(
                 () -> assertNotNull(study),
                 () -> assertEquals(StudyStatus.DRAFT, study.getStatus(),
@@ -62,11 +63,11 @@ class StudyTest {
     }
 
     @Test
-    @DisplayName("스터디 만들기 \uD83D\uDE31")
-    //@DisabledOnOs(OS.MAC)
-    //@EnabledOnJre(JRE.OTHER)
-    @EnabledIfEnvironmentVariable(named = "TEST_ENV", matches = "jinwoo")
-
+    @DisplayName("스터디 만들기 slow")
+    @Tag("slow")
+//    @DisabledOnOs(OS.MAC)
+//    @EnabledOnJre(JRE.OTHER)
+//    @EnabledIfEnvironmentVariable(named = "TEST_ENV", matches = "jinwoo")
     void create_new_study_again() {
         System.out.println("create1");
     }
