@@ -2,6 +2,7 @@ package com.swat018.inflearnthejavatest;
 
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.condition.*;
 
 import java.lang.reflect.Executable;
 import java.time.Duration;
@@ -9,15 +10,36 @@ import java.util.function.Supplier;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.junit.jupiter.api.Assumptions.assumingThat;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class StudyTest {
 
     @Test
     @DisplayName("스터디 만들기 ╯°□°）╯")
+    @EnabledOnOs(OS.MAC)
+    @EnabledOnJre({JRE.JAVA_8, JRE.JAVA_9, JRE.JAVA_10, JRE.JAVA_11})
+    @EnabledIfEnvironmentVariable(named = "TEST_ENV", matches = "LOCAL")
     void create_new_study() {
-        Study actual = new Study(10);
+        String test_env = System.getenv("TEST_ENV");
+        System.out.println("local");
+        Study actual = new Study(100);
         assertThat(actual.getLimit()).isGreaterThan(0);
+
+/*        assumingThat("LOCAL".equalsIgnoreCase(test_env), () -> {
+            System.out.println("local");
+            Study actual = new Study(100);
+            assertThat(actual.getLimit()).isGreaterThan(0);
+        });
+
+        assumingThat("jinwoo".equalsIgnoreCase(test_env), () -> {
+            System.out.println("jinwoo");
+            Study actual = new Study(10);
+            assertThat(actual.getLimit()).isGreaterThan(0);
+        });*/
+
+
 
 /*        assertTimeout(Duration.ofMillis(100), () -> {
             new Study(10);
@@ -39,9 +61,12 @@ class StudyTest {
         );*/
     }
 
-
     @Test
     @DisplayName("스터디 만들기 \uD83D\uDE31")
+    //@DisabledOnOs(OS.MAC)
+    //@EnabledOnJre(JRE.OTHER)
+    @EnabledIfEnvironmentVariable(named = "TEST_ENV", matches = "jinwoo")
+
     void create_new_study_again() {
         System.out.println("create1");
     }
