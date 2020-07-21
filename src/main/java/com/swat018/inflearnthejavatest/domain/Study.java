@@ -1,4 +1,6 @@
-package com.swat018.inflearnthejavatest;
+package com.swat018.inflearnthejavatest.domain;
+
+import com.swat018.inflearnthejavatest.study.StudyStatus;
 
 public class Study {
 
