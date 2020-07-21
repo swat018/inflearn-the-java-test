@@ -38,7 +38,7 @@ class StudyTest {
         System.out.println(this);
         System.out.println(value++);
         Study actual = new Study(1);
-        assertThat(actual.getLimit()).isGreaterThan(0);
+        assertThat(actual.getLimitCount()).isGreaterThan(0);
 /*        assumingThat("LOCAL".equalsIgnoreCase(test_env), () -> {
             System.out.println("local");
             Study actual = new Study(100);

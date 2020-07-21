@@ -1,17 +1,32 @@
 package com.swat018.inflearnthejavatest.domain;
 
 import com.swat018.inflearnthejavatest.study.StudyStatus;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+@Entity
+@Getter @Setter @NoArgsConstructor
 public class Study {
 
-    private StudyStatus status ;
-
-    private int limit;
-
+    @Id @GeneratedValue
+    private Long id;
+    private StudyStatus status = StudyStatus.DRAFT ;
+    private int limitCount;
     private String name;
+    private LocalTime openedDateTime;
+    @ManyToOne
+    private Member owner;
 
     public Study(int limit, String name) {
-        this.limit = limit;
+        this.limitCount = limit;
         this.name = name;
     }
 
@@ -19,27 +34,14 @@ public class Study {
         if (limit < 0) {
             throw new IllegalArgumentException("limit은 0보다 커야 한다.");
         }
-        this.limit = limit;
+        this.limitCount = limit;
     }
 
-    public StudyStatus getStatus() {
-        return status;
+    public void publish() {
+        this.openedDateTime = LocalTime.now();
+        this.status = StudyStatus.OPENED;
     }
 
-    public int getLimit() {
-        return limit;
-    }
 
-    public String getName() {
-        return name;
-    }
 
-    @Override
-    public String toString() {
-        return "Study{" +
-                "status=" + status +
-                ", limit=" + limit +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }
