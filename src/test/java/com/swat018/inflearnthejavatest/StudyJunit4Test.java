@@ -1,3 +1,4 @@
+/*
 package com.swat018.inflearnthejavatest;
 
 import org.junit.Before;
@@ -20,3 +21,4 @@ public class StudyJunit4Test {
         System.out.println("test2");
     }
 }
+*/
