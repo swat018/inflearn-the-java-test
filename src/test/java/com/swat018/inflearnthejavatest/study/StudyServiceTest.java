@@ -6,6 +6,7 @@ import com.swat018.inflearnthejavatest.member.MemberService;
 import net.bytebuddy.implementation.bind.annotation.RuntimeType;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -59,7 +60,18 @@ class StudyServiceTest {
         when(studyRepository.save(study)).thenReturn(study);
 
         studyService.createNewStudy(1L, study);
-        assertNotNull(study.getOwner()); assertEquals(member, study.getOwner());
+        assertNotNull(study.getOwner());
+        assertEquals(member, study.getOwner());
+
+        verify(memberservice, times(1)).notify(study);
+        verifyNoMoreInteractions(memberservice);
+
+/*        verify(memberservice, never()).validate(any());
+
+        InOrder inOrder = inOrder(memberservice);
+        inOrder.verify(memberservice).notify(study);
+        inOrder.verify(memberservice).notify(member);*/
+
 
 /*
         Study study = new Study(10, "java");
@@ -85,6 +97,7 @@ class StudyServiceTest {
 //        Optional<Member> optional = memberservice.findById(1L);
 //        memberservice.validate(2L);
 */
+
 
     }
 }
