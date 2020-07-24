@@ -4,6 +4,7 @@ import com.swat018.inflearnthejavatest.domain.Member;
 import com.swat018.inflearnthejavatest.domain.Study;
 import com.swat018.inflearnthejavatest.member.MemberService;
 import net.bytebuddy.implementation.bind.annotation.RuntimeType;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
@@ -14,6 +15,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -30,6 +33,7 @@ class StudyServiceTest {
                             @Mock StudyRepository studyRepository) {
 /*        MemberService memberservice = mock(MemberService.class);
         StudyRepository studyRepository = mock(StudyRepository.class);*/
+        // Given
         StudyService studyService = new StudyService(memberservice, studyRepository);
         assertNotNull(studyService);
 
@@ -54,17 +58,25 @@ class StudyServiceTest {
 
         Study study = new Study(10, "테스트");
         // TODO memberService 객체에 findById 메소드를 1L 값으로 호출하면 Optional.of(member) 객체를 리턴하도록 Stubbing
-        when(memberservice.findById(1L)).thenReturn(Optional.of(member));
-
+//        when(memberservice.findById(1L)).thenReturn(Optional.of(member));
         // TODO studyRepository 객체에 save 메소드를 study 객체로 호출하면 study 객체 그대로 리턴하도록 Stubbing
-        when(studyRepository.save(study)).thenReturn(study);
+//        when(studyRepository.save(study)).thenReturn(study);
 
+        given(memberservice.findById(1L)).willReturn(Optional.of(member));
+        given(studyRepository.save(study)).willReturn(study);
+
+        // When
         studyService.createNewStudy(1L, study);
+
+        // Then
         assertNotNull(study.getOwner());
         assertEquals(member, study.getOwner());
 
-        verify(memberservice, times(1)).notify(study);
-        verifyNoMoreInteractions(memberservice);
+//        verify(memberservice, times(1)).notify(study);
+//        verifyNoMoreInteractions(memberservice);
+
+        then(memberservice).should(times(1)).notify(study);
+        then(memberservice).shouldHaveNoMoreInteractions();
 
 /*        verify(memberservice, never()).validate(any());
 
