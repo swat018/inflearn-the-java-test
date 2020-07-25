@@ -22,19 +22,18 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class StudyServiceTest {
 
-/*    @Mock
-    MemberService memberservice;
+    @Mock
+    MemberService memberService;
 
     @Mock
-    StudyRepository studyRepository;*/
+    StudyRepository studyRepository;
 
     @Test
-    void createNewStudy(@Mock MemberService memberservice,
-                            @Mock StudyRepository studyRepository) {
+    void createNewStudy() {
 /*        MemberService memberservice = mock(MemberService.class);
         StudyRepository studyRepository = mock(StudyRepository.class);*/
         // Given
-        StudyService studyService = new StudyService(memberservice, studyRepository);
+        StudyService studyService = new StudyService(memberService, studyRepository);
         assertNotNull(studyService);
 
         Member member = new Member();
@@ -42,19 +41,19 @@ class StudyServiceTest {
         member.setEmail("swat018@gmail.com");
 
         // 메소드가 동일한 매개변수로 여러번 호출될 때 각기 다르게 행동호도록 조작할 수도 있다.
-        when(memberservice.findById(any()))
+        when(memberService.findById(any()))
                 .thenReturn(Optional.of(member))
                 .thenThrow(new RuntimeException())
                 .thenReturn(Optional.empty());
 
-        Optional<Member> byId = memberservice.findById(1L);
+        Optional<Member> byId = memberService.findById(1L);
         assertEquals("swat018@gmail.com", byId.get().getEmail());
 
         assertThrows(RuntimeException.class, () -> {
-            memberservice.findById(2L);
+            memberService.findById(2L);
         });
 
-        assertEquals(Optional.empty(), memberservice.findById(3L));
+        assertEquals(Optional.empty(), memberService.findById(3L));
 
         Study study = new Study(10, "테스트");
         // TODO memberService 객체에 findById 메소드를 1L 값으로 호출하면 Optional.of(member) 객체를 리턴하도록 Stubbing
@@ -62,7 +61,7 @@ class StudyServiceTest {
         // TODO studyRepository 객체에 save 메소드를 study 객체로 호출하면 study 객체 그대로 리턴하도록 Stubbing
 //        when(studyRepository.save(study)).thenReturn(study);
 
-        given(memberservice.findById(1L)).willReturn(Optional.of(member));
+        given(memberService.findById(1L)).willReturn(Optional.of(member));
         given(studyRepository.save(study)).willReturn(study);
 
         // When
@@ -75,15 +74,14 @@ class StudyServiceTest {
 //        verify(memberservice, times(1)).notify(study);
 //        verifyNoMoreInteractions(memberservice);
 
-        then(memberservice).should(times(1)).notify(study);
-        then(memberservice).shouldHaveNoMoreInteractions();
+        then(memberService).should(times(1)).notify(study);
+        then(memberService).shouldHaveNoMoreInteractions();
 
 /*        verify(memberservice, never()).validate(any());
 
         InOrder inOrder = inOrder(memberservice);
         inOrder.verify(memberservice).notify(study);
         inOrder.verify(memberservice).notify(member);*/
-
 
 /*
         Study study = new Study(10, "java");
@@ -111,5 +109,27 @@ class StudyServiceTest {
 */
 
 
+    }
+
+    @DisplayName("다른 사용자가 볼 수 있도록 스터디를 공개한다.")
+    @Test
+    void openStudy() {
+        // Given
+        StudyService studyService = new StudyService(memberService, studyRepository);
+        Study study = new Study(10, "더 자바, 테스트");
+        assertNull(study.getOpenedDateTime());
+        // TODO studyRepository Mock 객체의 save 메소드를 호출 시 study를 리턱하돌고 만들기.
+        given(studyRepository.save(study)).willReturn(study);
+
+        // When
+        studyService.openStudy(study);
+
+        // Then
+        // TODO study의 status가 OPENED로 변경했는지 확인
+        assertEquals(StudyStatus.OPENED, study.getStatus());
+        // TODO study의 openedDataTime이 null이 아닌지 확인
+        assertNotNull(study.getOpenedDateTime());
+        // TODO memberService의 notify(study)가 호출 됐는지 확인
+        then(memberService).should().notify(study);
     }
 }
