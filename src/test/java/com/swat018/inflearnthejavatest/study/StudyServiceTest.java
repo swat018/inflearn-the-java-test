@@ -10,6 +10,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Optional;
 
@@ -19,13 +22,15 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.*;
 
+@SpringBootTest
 @ExtendWith(MockitoExtension.class)
+@ActiveProfiles("test")
 class StudyServiceTest {
 
     @Mock
     MemberService memberService;
 
-    @Mock
+    @Autowired
     StudyRepository studyRepository;
 
     @Test
@@ -40,7 +45,7 @@ class StudyServiceTest {
         member.setId(1L);
         member.setEmail("swat018@gmail.com");
 
-        // 메소드가 동일한 매개변수로 여러번 호출될 때 각기 다르게 행동호도록 조작할 수도 있다.
+/*        // 메소드가 동일한 매개변수로 여러번 호출될 때 각기 다르게 행동호도록 조작할 수도 있다.
         when(memberService.findById(any()))
                 .thenReturn(Optional.of(member))
                 .thenThrow(new RuntimeException())
@@ -53,7 +58,7 @@ class StudyServiceTest {
             memberService.findById(2L);
         });
 
-        assertEquals(Optional.empty(), memberService.findById(3L));
+        assertEquals(Optional.empty(), memberService.findById(3L));*/
 
         Study study = new Study(10, "테스트");
         // TODO memberService 객체에 findById 메소드를 1L 값으로 호출하면 Optional.of(member) 객체를 리턴하도록 Stubbing
@@ -62,14 +67,16 @@ class StudyServiceTest {
 //        when(studyRepository.save(study)).thenReturn(study);
 
         given(memberService.findById(1L)).willReturn(Optional.of(member));
-        given(studyRepository.save(study)).willReturn(study);
+//        given(studyRepository.save(study)).willReturn(study);
 
         // When
         studyService.createNewStudy(1L, study);
 
         // Then
-        assertNotNull(study.getOwner());
-        assertEquals(member, study.getOwner());
+//
+//        assertEquals(member, study.getOwner());
+          assertEquals(1L, study.getOwnerId());
+
 
 //        verify(memberservice, times(1)).notify(study);
 //        verifyNoMoreInteractions(memberservice);
@@ -118,7 +125,7 @@ class StudyServiceTest {
         StudyService studyService = new StudyService(memberService, studyRepository);
         Study study = new Study(10, "더 자바, 테스트");
         assertNull(study.getOpenedDateTime());
-        // TODO studyRepository Mock 객체의 save 메소드를 호출 시 study를 리턱하돌고 만들기.
+        // TODO studyRepository Mock 객체의 save 메소드를 호출 시 study를 리턱하도록 만들기.
         given(studyRepository.save(study)).willReturn(study);
 
         // When

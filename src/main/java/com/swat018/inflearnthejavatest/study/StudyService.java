@@ -20,11 +20,20 @@ public class StudyService {
     }
 
     public Study createNewStudy(Long memberId, Study study) {
-        Optional<Member> member = memberService.findById(memberId);
-        study.setOwner(member.orElseThrow(() -> new IllegalArgumentException("Member doesn't exist for id: '" + memberId + "'")));
+/*        Optional<Member> member = memberService.findById(memberId);
+        study.setOwnerId(member.orElseThrow(() -> new IllegalArgumentException("Member doesn't exist for id: '" + memberId + "'")));
         Study newstudy = repository.save(study);
         memberService.notify(newstudy);
 //        memberService.notify(member.get());
+        return newstudy;*/
+        Optional<Member> member = memberService.findById(memberId);
+        if (member.isPresent()) {
+            study.setOwnerId(memberId);
+        } else {
+            throw new IllegalArgumentException("Member doesn't exist for id: '" + memberId + "'");
+        }
+        Study newstudy = repository.save(study);
+        memberService.notify(newstudy);
         return newstudy;
     }
 
