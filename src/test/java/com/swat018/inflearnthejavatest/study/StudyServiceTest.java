@@ -114,8 +114,6 @@ class StudyServiceTest {
 //        Optional<Member> optional = memberservice.findById(1L);
 //        memberservice.validate(2L);
 */
-
-
     }
 
     @DisplayName("다른 사용자가 볼 수 있도록 스터디를 공개한다.")
@@ -125,8 +123,8 @@ class StudyServiceTest {
         StudyService studyService = new StudyService(memberService, studyRepository);
         Study study = new Study(10, "더 자바, 테스트");
         assertNull(study.getOpenedDateTime());
-        // TODO studyRepository Mock 객체의 save 메소드를 호출 시 study를 리턱하도록 만들기.
-        given(studyRepository.save(study)).willReturn(study);
+/*        // TODO studyRepository Mock 객체의 save 메소드를 호출 시 study를 리턱하도록 만들기.
+        given(studyRepository.save(study)).willReturn(study);*/
 
         // When
         studyService.openStudy(study);
