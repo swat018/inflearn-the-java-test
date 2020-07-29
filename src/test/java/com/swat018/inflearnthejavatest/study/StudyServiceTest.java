@@ -3,17 +3,23 @@ package com.swat018.inflearnthejavatest.study;
 import com.swat018.inflearnthejavatest.domain.Member;
 import com.swat018.inflearnthejavatest.domain.Study;
 import com.swat018.inflearnthejavatest.member.MemberService;
+import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.implementation.bind.annotation.RuntimeType;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.stereotype.Controller;
 import org.springframework.test.context.ActiveProfiles;
+import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.containers.output.Slf4jLogConsumer;
+import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
@@ -29,6 +35,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
 @Testcontainers
+@Slf4j
 class StudyServiceTest {
 
     @Mock
@@ -37,12 +44,25 @@ class StudyServiceTest {
     @Autowired
     StudyRepository studyRepository;
 
-    @Container
+/*    @Container
     static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer()
-            .withDatabaseName("studytest");
+            .withDatabaseName("studytest");*/
+    @Container
+    static GenericContainer postgreSQLContainer = new GenericContainer("postgres")
+//        .withExposedPorts(5432)
+        .withEnv("POSTGRES_DB", "studytest");
+
+    @BeforeAll
+    static void beforeAll() {
+        Slf4jLogConsumer logConsumer = new Slf4jLogConsumer(log);
+        postgreSQLContainer.followOutput(logConsumer);
+    }
 
     @BeforeEach
     void beforeEach() {
+        System.out.println("===================");
+        System.out.println(postgreSQLContainer.getMappedPort(5432));
+//        System.out.println(postgreSQLContainer.getLogs());
         studyRepository.deleteAll();
     }
 
@@ -83,8 +103,8 @@ class StudyServiceTest {
         });
 
         assertEquals(Optional.empty(), memberService.findById(3L));*/
-
         Study study = new Study(10, "테스트");
+//        Study study = new Study(10, "테스트");
         // TODO memberService 객체에 findById 메소드를 1L 값으로 호출하면 Optional.of(member) 객체를 리턴하도록 Stubbing
 //        when(memberservice.findById(1L)).thenReturn(Optional.of(member));
         // TODO studyRepository 객체에 save 메소드를 study 객체로 호출하면 study 객체 그대로 리턴하도록 Stubbing
