@@ -2,6 +2,7 @@ package com.swat018.inflearnthejavatest.study;
 
 import com.swat018.inflearnthejavatest.domain.Member;
 import com.swat018.inflearnthejavatest.domain.Study;
+import com.swat018.inflearnthejavatest.domain.StudyStatus;
 import com.swat018.inflearnthejavatest.member.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.ApplicationContextInitializer;
@@ -45,15 +47,18 @@ class StudyServiceTest {
     @Autowired
     StudyRepository studyRepository;
 
-    @Autowired
-    Environment environment;
+//    @Autowired
+//    Environment environment;
+
+    @Value("${container.port}")
+    int port;
 
 /*    @Container
     static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer()
             .withDatabaseName("studytest");*/
     @Container
     static GenericContainer postgreSQLContainer = new GenericContainer("postgres")
-//       .withExposedPorts(5432)
+//        .withExposedPorts(5432)
         .withEnv("POSTGRES_DB", "studytest");
 
     @BeforeAll
@@ -65,7 +70,9 @@ class StudyServiceTest {
     @BeforeEach
     void beforeEach() {
         System.out.println("===================");
-        System.out.println(environment.getProperty("container.port"));
+        System.out.println(port);
+//        System.out.println(postgreSQLContainer.getMappedPort(5432));
+//        System.out.println(environment.getProperty("container.port"));
 //        System.out.println(postgreSQLContainer.getLogs());
         studyRepository.deleteAll();
     }

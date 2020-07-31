@@ -1,6 +1,5 @@
 package com.swat018.inflearnthejavatest.domain;
 
-import com.swat018.inflearnthejavatest.study.StudyStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,8 +7,6 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
