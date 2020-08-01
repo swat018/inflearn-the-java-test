@@ -98,6 +98,8 @@ class StudyServiceTest {
     void createNewStudy() {
 /*        MemberService memberservice = mock(MemberService.class);
         StudyRepository studyRepository = mock(StudyRepository.class);*/
+        System.out.println("============");
+        System.out.println(port);
         // Given
         StudyService studyService = new StudyService(memberService, studyRepository);
         assertNotNull(studyService);
