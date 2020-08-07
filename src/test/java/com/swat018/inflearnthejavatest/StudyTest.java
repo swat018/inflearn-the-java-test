@@ -1,3 +1,4 @@
+/*
 package com.swat018.inflearnthejavatest;
 
 
@@ -39,6 +40,7 @@ class StudyTest {
         System.out.println(value++);
         Study actual = new Study(1);
         assertThat(actual.getLimitCount()).isGreaterThan(0);
+*/
 /*        assumingThat("LOCAL".equalsIgnoreCase(test_env), () -> {
             System.out.println("local");
             Study actual = new Study(100);
@@ -49,28 +51,35 @@ class StudyTest {
             System.out.println("jinwoo");
             Study actual = new Study(10);
             assertThat(actual.getLimit()).isGreaterThan(0);
-        });*/
+        });*//*
 
 
 
+
+*/
 /*        assertTimeout(Duration.ofMillis(100), () -> {
             new Study(10);
             Thread.sleep(300);
         });
-        // TODO ThreadLocal*/
+        // TODO ThreadLocal*//*
 
+
+*/
 /*        IllegalArgumentException exception =
                 assertThrows(IllegalArgumentException.class, () -> new Study(-10));
         String message = exception.getMessage();
-        assertEquals("limit은 0보다 커야 한다.", exception.getMessage());*/
+        assertEquals("limit은 0보다 커야 한다.", exception.getMessage());*//*
+
 
 //        Study study = new Study(-10);
+*/
 /*        assertAll(
                 () -> assertNotNull(study),
                 () -> assertEquals(StudyStatus.DRAFT, study.getStatus(),
                         () -> "스터디를 처음 만들면 " + StudyStatus.DRAFT +"상태다."),
                 () -> assertTrue(study.getLimit() > 0, "스터디 최대 참석  가능 인원은 0보다 커야 한다.")
-        );*/
+        );*//*
+
     }
 
     @Order(1)
@@ -142,4 +151,4 @@ class StudyTest {
         System.out.println("After each");
     }
 
-}
+}*/

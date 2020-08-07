@@ -43,4 +43,8 @@ public class StudyService {
         memberService.notify(openedStudy);
         return openedStudy;
     }
+
+    public void hi() {
+
+    }
 }
