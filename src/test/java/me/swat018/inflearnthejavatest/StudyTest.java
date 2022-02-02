@@ -5,6 +5,7 @@ import org.junit.jupiter.api.*;
 import java.time.Duration;
 import java.util.function.Supplier;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -27,11 +28,14 @@ class StudyTest {
 //        String message = exception.getMessage();
 //        assertEquals("limit는 0보다 커야 한다.", message);
 
-        assertTimeout(Duration.ofMillis(100), () -> {
-            new Study(10);
-            Thread.sleep(300);
-        });
-        // TODO ThreadLocal
+//        assertTimeout(Duration.ofMillis(100), () -> {
+//            new Study(10);
+//            Thread.sleep(300);
+//        });
+//        // TODO ThreadLocal
+
+        Study actual = new Study(10);
+        assertThat(actual.getLimit()).isGreaterThan(0);
 
     }
 
