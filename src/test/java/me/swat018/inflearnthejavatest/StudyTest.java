@@ -14,12 +14,13 @@ import static org.junit.jupiter.api.Assumptions.assumingThat;
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class StudyTest {
 
-    @Test
+//    @Test
+    @FastTest
     @DisplayName("스터디 만들기 fast")
 //    @EnabledOnOs({OS.MAC, OS.LINUX})
 //    @EnabledOnJre({JRE.JAVA_8, JRE.JAVA_9, JRE.JAVA_10, JRE.JAVA_11})
 //    @EnabledIfEnvironmentVariable(named = "TEST_ENV", matches = "LOCAL")
-    @Tag("fast")
+//    @Tag("fast")
     void create_new_study() {
 //        Study study = new Study(-10);
 //
@@ -40,29 +41,34 @@ class StudyTest {
 //            Thread.sleep(300);
 //        });
 //        // TODO ThreadLocal
-        String test_env = System.getenv("TEST_ENV");
-        System.out.println(test_env);
-        assumeTrue("LOCAL".equalsIgnoreCase(test_env));
 
-        assumingThat("LOCAL".equalsIgnoreCase(test_env), () -> {
-            Study actual = new Study(100);
-            assertThat(actual.getLimit()).isGreaterThan(0);
-        });
-        assumingThat("jinwoo".equalsIgnoreCase(test_env), () -> {
-            Study actual = new Study(10);
-            assertThat(actual.getLimit()).isGreaterThan(0);
-        });
+//        String test_env = System.getenv("TEST_ENV");
+//        System.out.println(test_env);
+//        assumeTrue("LOCAL".equalsIgnoreCase(test_env));
+//
+//        assumingThat("LOCAL".equalsIgnoreCase(test_env), () -> {
+//            Study actual = new Study(100);
+//            assertThat(actual.getLimit()).isGreaterThan(0);
+//        });
+//        assumingThat("jinwoo".equalsIgnoreCase(test_env), () -> {
+//            Study actual = new Study(10);
+//            assertThat(actual.getLimit()).isGreaterThan(0);
+//        });
+//
+//        Study actual = new Study(10);
+//        assertThat(actual.getLimit()).isGreaterThan(0);
 
-        Study actual = new Study(10);
+        Study actual = new Study(100);
         assertThat(actual.getLimit()).isGreaterThan(0);
 
     }
 
-    @Test
+//    @Test
+    @SlowTest
     @DisplayName("스터디 만들기 slow")
 //    @DisabledOnOs(OS.MAC)
 //    @EnabledOnJre(JRE.OTHER)
-    @Tag("slow")
+//    @Tag("slow")
     void create_new_study_again() {
         System.out.println("create1");
     }
