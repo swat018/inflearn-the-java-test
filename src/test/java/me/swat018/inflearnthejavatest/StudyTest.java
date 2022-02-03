@@ -15,10 +15,11 @@ import static org.junit.jupiter.api.Assumptions.assumingThat;
 class StudyTest {
 
     @Test
-    @DisplayName("스터디 만들기 \uD83D\uDE31")
-    @EnabledOnOs({OS.MAC, OS.LINUX})
-    @EnabledOnJre({JRE.JAVA_8, JRE.JAVA_9, JRE.JAVA_10, JRE.JAVA_11})
-    @EnabledIfEnvironmentVariable(named = "TEST_ENV", matches = "LOCAL")
+    @DisplayName("스터디 만들기 fast")
+//    @EnabledOnOs({OS.MAC, OS.LINUX})
+//    @EnabledOnJre({JRE.JAVA_8, JRE.JAVA_9, JRE.JAVA_10, JRE.JAVA_11})
+//    @EnabledIfEnvironmentVariable(named = "TEST_ENV", matches = "LOCAL")
+    @Tag("fast")
     void create_new_study() {
 //        Study study = new Study(-10);
 //
@@ -58,9 +59,10 @@ class StudyTest {
     }
 
     @Test
-    @DisplayName("스터디 만들기 ╯°□°）╯")
+    @DisplayName("스터디 만들기 slow")
 //    @DisabledOnOs(OS.MAC)
-    @EnabledOnJre(JRE.OTHER)
+//    @EnabledOnJre(JRE.OTHER)
+    @Tag("slow")
     void create_new_study_again() {
         System.out.println("create1");
     }
