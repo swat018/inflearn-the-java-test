@@ -22,7 +22,12 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.junit.jupiter.api.Assumptions.assumingThat;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class StudyTest {
+
+
+
+    int value = 1;
 
 //    @Test
     @FastTest
@@ -68,7 +73,11 @@ class StudyTest {
 //        Study actual = new Study(10);
 //        assertThat(actual.getLimit()).isGreaterThan(0);
 
-        Study actual = new Study(100);
+//        Study actual = new Study(100);
+//        assertThat(actual.getLimit()).isGreaterThan(0);
+        System.out.println(this);
+        System.out.println(value++);
+        Study actual = new Study(1);
         assertThat(actual.getLimit()).isGreaterThan(0);
 
     }
@@ -80,7 +89,8 @@ class StudyTest {
 //    @EnabledOnJre(JRE.OTHER)
 //    @Tag("slow")
     void create_new_study_again() {
-        System.out.println("create1");
+        System.out.println(this);
+        System.out.println("create1 " + value++);
     }
 
     @DisplayName("스터디 만들기")
