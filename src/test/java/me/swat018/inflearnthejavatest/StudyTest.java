@@ -23,13 +23,13 @@ import static org.junit.jupiter.api.Assumptions.assumingThat;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class StudyTest {
-
-
 
     int value = 1;
 
 //    @Test
+    @Order(2)
     @FastTest
     @DisplayName("스터디 만들기 fast")
 //    @EnabledOnOs({OS.MAC, OS.LINUX})
@@ -83,6 +83,7 @@ class StudyTest {
     }
 
 //    @Test
+    @Order(1)
     @SlowTest
     @DisplayName("스터디 만들기 slow")
 //    @DisabledOnOs(OS.MAC)
@@ -92,7 +93,7 @@ class StudyTest {
         System.out.println(this);
         System.out.println("create1 " + value++);
     }
-
+    @Order(3)
     @DisplayName("스터디 만들기")
     @RepeatedTest(value = 10, name = "{displayName}, {currentRepetition}/{totalRepetitions}")
     void repeatTest(RepetitionInfo repetitionInfo) {
@@ -124,6 +125,7 @@ class StudyTest {
 //        Study study = new Study(argumentsAccessor.getInteger(0), argumentsAccessor.getString(1));
 //        System.out.println(study);
 //    }
+    @Order(4)
     @DisplayName("스터디 만들기")
     @ParameterizedTest(name = "{index} {displayName} message={0}")
     @CsvSource({"10, '자바스터디'","20, '스프링'"})
