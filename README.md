@@ -20,3 +20,4 @@
   - Mockito: Mock 객체 만들기
   - Mockito: Mock 객체 Stubbing
   - Mockito: Mock 객체 Stubbing 연습문제
+  - Mockito: Mock 객체 확인
