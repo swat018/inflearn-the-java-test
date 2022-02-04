@@ -23,6 +23,9 @@ public class StudyService {
     public Study createNewStudy(Long memberId, Study study) {
         Optional<Member> member = memberService.findById(memberId);
         study.setOwner(member.orElseThrow( () -> new IllegalArgumentException("Member doesn`t exist id : '" + memberId + "'")));
-        return repository.save(study);
+        Study newstudy = repository.save(study);
+        memberService.notify(newstudy);
+        memberService.notify(member.get());
+        return newstudy;
     }
 }
