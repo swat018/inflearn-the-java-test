@@ -21,8 +21,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.junit.jupiter.api.Assumptions.assumingThat;
 
-@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+//@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+//@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class StudyTest {
 
@@ -31,7 +31,7 @@ class StudyTest {
 //    @Test
     @Order(2)
     @FastTest
-    @DisplayName("스터디 만들기 fast")
+//    @DisplayName("스터디 만들기 fast")
 //    @EnabledOnOs({OS.MAC, OS.LINUX})
 //    @EnabledOnJre({JRE.JAVA_8, JRE.JAVA_9, JRE.JAVA_10, JRE.JAVA_11})
 //    @EnabledIfEnvironmentVariable(named = "TEST_ENV", matches = "LOCAL")
@@ -86,7 +86,7 @@ class StudyTest {
     @Order(1)
     @SlowTest
     @DisplayName("스터디 만들기 slow")
-//    @DisabledOnOs(OS.MAC)
+    @DisabledOnOs(OS.MAC)
 //    @EnabledOnJre(JRE.OTHER)
 //    @Tag("slow")
     void create_new_study_again() {
