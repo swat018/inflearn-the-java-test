@@ -11,3 +11,4 @@
   - JUnit 5: 테스트 인스턴스
   - JUnit 5: 테스트 순서
   - JUnit 5: junit-platform.properties
+  - JUnit 5: 확장 모델
