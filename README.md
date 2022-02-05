@@ -14,6 +14,7 @@
   - JUnit 5: 테스트 순서
   - JUnit 5: junit-platform.properties
   - JUnit 5: 확장 모델
+  - JUnit 5: Junit 4 마이그레이션
 - 2부. Mockito   
   -
   - Mockito: 시작하기
@@ -22,3 +23,4 @@
   - Mockito: Mock 객체 Stubbing 연습문제
   - Mockito: Mock 객체 확인
   - Mockito: BDD 스타일 Mockito API
+  - Mockito: 연습문제
