@@ -14,6 +14,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -35,12 +37,12 @@ class StudyServiceTest {
 ////        assertNull(optional);
 //        memberService.validate(2L);
 
-        StudyService studyService = new StudyService(memberService, studyRepository);
-        assertNotNull(studyService);
-
-        Member member = new Member();
-        member.setId(1L);
-        member.setEmail("swat018@gmail.com");
+//        StudyService studyService = new StudyService(memberService, studyRepository);
+//        assertNotNull(studyService);
+//
+//        Member member = new Member();
+//        member.setId(1L);
+//        member.setEmail("swat018@gmail.com");
 
 //        when(memberService.findById(1L)).thenReturn(Optional.of(member));
 //
@@ -79,27 +81,43 @@ class StudyServiceTest {
 //
 //        assertEquals(Optional.empty(), memberService.findById(3L));
 
+        // Given
+        StudyService studyService = new StudyService(memberService, studyRepository);
+        assertNotNull(studyService);
+
+        Member member = new Member();
+        member.setId(1L);
+        member.setEmail("swat018@gmail.com");
+
         Study study = new Study(10, "테스트");
-        // TODO memberService 객체에 findById 메소드를 1L 값으로 호출하면 member 객체를 리턴하도록 Stubbing
-        when(memberService.findById(1L)).thenReturn(Optional.of(member));
 
-        // TODO studyRepository 객체에 save 메소드를 study 객체로 호출하면 study 객체 그대로 리턴하도록 Stubbing
-        when(studyRepository.save(study)).thenReturn(study);
+//        // TODO memberService 객체에 findById 메소드를 1L 값으로 호출하면 member 객체를 리턴하도록 Stubbing
+//        when(memberService.findById(1L)).thenReturn(Optional.of(member));
+//
+//        // TODO studyRepository 객체에 save 메소드를 study 객체로 호출하면 study 객체 그대로 리턴하도록 Stubbing
+//        when(studyRepository.save(study)).thenReturn(study);
+        given(memberService.findById(1L)).willReturn(Optional.of(member));
+        given(studyRepository.save(study)).willReturn(study);
 
+        // When
         studyService.createNewStudy(1L, study);
 
+        //Then
         assertNotNull(study.getOwner());
         assertEquals(member, study.getOwner());
 
-        verify(memberService, times(1)).notify(study);
-        verify(memberService, times(1)).notify(member);
-        verify(memberService, never()).validate(any());
+//        verify(memberService, times(1)).notify(study);
+//        verify(memberService, times(1)).notify(member);
+//        verify(memberService, never()).validate(any());
+//
+//        InOrder inOrder = inOrder(memberService);
+//        inOrder.verify(memberService).notify(study);
+////        inOrder.verify(memberService).notify(member);
+//
+//        verifyNoMoreInteractions(memberService);
 
-        InOrder inOrder = inOrder(memberService);
-        inOrder.verify(memberService).notify(study);
-//        inOrder.verify(memberService).notify(member);
-
-        verifyNoMoreInteractions(memberService);
+        then(memberService).should().notify(study);
+//        then(memberService).shouldHaveNoMoreInteractions();
 
     }
 
