@@ -26,4 +26,5 @@
   - Mockito: 연습문제
 - 3부.도커와 테스트
   -    
-  - Testcontainer: 소개
+  - Testcontainers: 소개
+  - Testcontainers: 설치
