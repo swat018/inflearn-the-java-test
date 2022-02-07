@@ -41,4 +41,6 @@
   -
   - Chaos Monkey: 소개
   - Chaos Monkey: 설치
+  - Chaos Monkey: CM4SB 응답 지연
+  - Chaos Monkey: CM4SB 에러 발생
 
