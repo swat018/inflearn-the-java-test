@@ -49,7 +49,5 @@
   - ArchUnit: 설치
   - ArchUnit: 패키지 의존성 확인하기
   - ArchUnit: Junit 5 연동하기
-  
-
-
-  
+  - ArchUnit: 클래스 의존성 확인하기
+ 
