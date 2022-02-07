@@ -43,4 +43,7 @@
   - Chaos Monkey: 설치
   - Chaos Monkey: CM4SB 응답 지연
   - Chaos Monkey: CM4SB 에러 발생
-
+- 6부. 아키텍처 테스트
+  - 
+  - ArchUnit: 소개
+  - ArchUnit: 설치
